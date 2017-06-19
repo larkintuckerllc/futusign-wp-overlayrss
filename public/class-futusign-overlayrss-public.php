@@ -26,4 +26,18 @@ class Futusign_OverlayRSS_Public {
 	 */
 	public function __construct() {
 	}
+	/**
+	 * Return single templates
+	 *
+	 * @since    0.1.0
+	 * @param    string      $single     path to template
+	 * @return   string      path to template
+	 */
+	public function single_template( $single ) {
+		global $post;
+		if ($post->post_type == 'futusign_ov_widget' && $post->post_title == 'RSS'){
+			return plugin_dir_path( __FILE__ ) . 'futusign-overlayrss-template.php';
+		}
+		return $single;
+	}
 }

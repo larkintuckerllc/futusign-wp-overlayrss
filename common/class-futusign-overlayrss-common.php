@@ -20,10 +20,38 @@ if ( ! defined( 'WPINC' ) ) {
  */
 class Futusign_OverlayRSS_Common {
 	/**
+	 * The image.
+	 *
+	 * @since    0.1.0
+	 * @access   private
+	 * @var      Futusign_OverlayRSS_Type    $rss    The rss
+	 */
+	private $rss;
+	/**
 	 * Initialize the class and set its properties.
 	 *
 	 * @since    0.1.0
 	 */
 	public function __construct() {
+		$this->load_dependencies();
+		$this->rss = new Futusign_OverlayRSS_Type();
+	}
+	/**
+	 * Load the required dependencies for module.
+	 *
+	 * @since    0.1.0
+	 * @access   private
+	 */
+	private function load_dependencies() {
+		require_once plugin_dir_path( __FILE__ ) . 'class-futusign-overlayrss-type.php';
+	}
+	/**
+	 * Retrieve the rss
+	 *
+	 * @since     0.1.0
+	 * @return    Futusign_OverlayRSS_Type    The rss functionality.
+	 */
+	public function get_rss() {
+		return $this->rss;
 	}
 }

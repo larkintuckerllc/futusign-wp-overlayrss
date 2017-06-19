@@ -159,6 +159,13 @@ class Futusign_OverlayRSS {
 	 */
 	private function define_common_hooks() {
 		$plugin_common = new Futusign_OverlayRSS_Common();
+		// RSS
+		$rss = $plugin_common->get_rss();
+		$this->loader->add_action( 'init', $rss, 'register' );
+		$this->loader->add_action( 'publish_futusign_overlay_rss', $rss, 'publish', 10, 2 );
+		$this->loader->add_action( 'draft_futusign_overlay_rss', $rss, 'unpublish', 10, 2 );
+		$this->loader->add_action( 'pending_futusign_overlay_rss', $rss, 'unpublish', 10, 2 );
+		$this->loader->add_action( 'trash_futusign_overlay_rss', $rss, 'unpublish', 10, 2 );
 	}
 	/**
 	 * Register all of the hooks related to the admin area functionality
@@ -179,6 +186,7 @@ class Futusign_OverlayRSS {
 	 */
 	private function define_public_hooks() {
 		$plugin_public = new Futusign_OverlayRSS_Public();
+		$this->loader->add_action('single_template', $plugin_public, 'single_template');
 	}
 	/**
 	 * Run the loader to execute all of the hooks with WordPress.
