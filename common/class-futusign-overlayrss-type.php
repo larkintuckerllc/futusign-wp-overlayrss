@@ -65,15 +65,15 @@ class Futusign_OverlayRSS_Type {
 	 * @param    string    $post          Post
 	 */
 	 public function publish( $ID, $post ) {
-		 wp_insert_post(
+		 $widgetID = wp_insert_post(
 			 array(
 				 'post_type' => 'futusign_ov_widget',
 				 'post_status' => 'publish',
-				 'post_title' => 'RSS',
+				 'post_title' => 'RSS - '. get_the_title($post),
 			 )
 		 );
+		 add_post_meta( $widgetID, 'rssID', strval($ID), true );
 	 }
-	// TODO: OTHER TRANSITIONS
 	/**
 	 * Remove widget on draft
 	 *
@@ -82,7 +82,8 @@ class Futusign_OverlayRSS_Type {
 	 * @param    string    $post          Post
 	 */
 	public function unpublish( $ID, $post ) {
-		$rssIds = array();
+		$strID = strval($ID);
+		$widgetIDs = array();
 		$args = array(
 			'post_type' => 'futusign_ov_widget',
 			'posts_per_page' => -1,
@@ -90,15 +91,15 @@ class Futusign_OverlayRSS_Type {
 		$loop = new WP_Query( $args );
 		while ( $loop->have_posts() ) {
 			$loop->the_post();
-			$id = get_the_ID();
-			$title = get_the_title();
-			if ($title == 'RSS') {
-				$rssIds[] = $id;
+			$loopID = get_the_ID();
+			$rssID = get_post_meta( $loopID, 'rssID', true );
+			if ( $rssID === $strID ) {
+				$widgetIDs[] = $loopID;
 			}
 		}
 		wp_reset_query();
-		foreach ($rssIds as $rssId) {
-			wp_delete_post($rssId, true);
+		foreach ($widgetIDs as $widgetID) {
+			wp_delete_post($widgetID, true);
 		}
 	}
 }
