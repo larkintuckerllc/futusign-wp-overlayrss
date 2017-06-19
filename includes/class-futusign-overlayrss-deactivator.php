@@ -34,8 +34,9 @@ class Futusign_OverlayRSS_Deactivator {
 		while ( $loop->have_posts() ) {
 			$loop->the_post();
 			$loopID = get_the_ID();
-			$rssID = intval(get_post_meta( $loopID, 'rssID', true ), 10);
-			if ($rssID !== null) {
+			$rssIDStr = get_post_meta( $loopID, 'rssID', true );
+			if ($rssIDStr !== '') {
+				$rssID = intval($rssIDStr);
 				wp_delete_post($loopID, true);
 				wp_delete_post($rssID, true);
 			}
