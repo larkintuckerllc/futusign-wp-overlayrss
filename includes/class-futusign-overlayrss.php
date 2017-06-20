@@ -162,6 +162,7 @@ class Futusign_OverlayRSS {
 		// RSS
 		$rss = $plugin_common->get_rss();
 		$this->loader->add_action( 'init', $rss, 'register' );
+		$this->loader->add_action( 'init', $rss, 'register_field_group' );
 		$this->loader->add_action( 'publish_futusign_overlay_rss', $rss, 'publish', 10, 2 );
 		$this->loader->add_action( 'draft_futusign_overlay_rss', $rss, 'unpublish', 10, 2 );
 		$this->loader->add_action( 'pending_futusign_overlay_rss', $rss, 'unpublish', 10, 2 );

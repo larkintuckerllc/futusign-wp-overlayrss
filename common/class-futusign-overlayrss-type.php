@@ -58,6 +58,191 @@ class Futusign_OverlayRSS_Type {
 		);
 	}
 	/**
+	 * Register ACF Field Group
+	 *
+	 * @since    0.1.0
+	 */
+	// TODO: DEPRECATED REPLACE WITH ACF_ADD_LOCAL_FIELD_GROUP
+	public function register_field_group() {
+		if ( function_exists( 'register_field_group' ) ) {
+			register_field_group( array (
+				'id' => 'acf_futusign_overlay_rss',
+				'key' => 'acf_futusign_overlay_rss',
+				'title' => 'futusign Overlay RSS',
+				'fields' => array (
+					array (
+						'key' => 'field_acf_fs_or_instructions',
+						'label' => __('Instructions', 'futusign_overlayrss'),
+						'name' => '',
+						'type' => 'message',
+						'message' => __('When updating; to force changes to all playing screens update version in futusign settings.', 'futusign_overlayrss'),
+					),
+					array (
+						'key' => 'field_acf_fs_or_url',
+						'label' => __('URL', 'futusign_overlayrss'),
+						'name' => 'url',
+						'type' => 'text',
+						'instructions' => __('The URL of the RSS feed', 'futusign_overlayrss'),
+						'required' => 1,
+						'default_value' => '',
+						'placeholder' => '',
+						'prepend' => '',
+						'append' => '',
+						'formatting' => 'none',
+						'maxlength' => '',
+					),
+					array (
+						'key' => 'field_acf_fs_or_cycling',
+						'label' => __('Cycling', 'futusign_overlayrss'),
+						'name' => 'cycling',
+						'type' => 'number',
+						'instructions' => __('The number of seconds to show each item; minimum 10 seconds', 'futusign_overlayrss'),
+						'required' => 1,
+						'default_value' => 10,
+						'placeholder' => '',
+						'prepend' => '',
+						'append' => '',
+						'min' => 10,
+						'max' => '',
+						'step' => 1,
+					),
+					array (
+						'key' => 'field_acf_fs_or_polling',
+						'label' => __('Polling', 'futusign_overlayrss'),
+						'name' => 'polling',
+						'type' => 'number',
+						'instructions' => __('The number of seconds between polling of RSS feed; minimum  60 seconds', 'futusign_overlayrss'),
+						'required' => 1,
+						'default_value' => 60,
+						'placeholder' => '',
+						'prepend' => '',
+						'append' => '',
+						'min' => 60,
+						'max' => '',
+						'step' => 1,
+					),
+					array (
+						'key' => 'field_acf_fs_or_size',
+						'label' => __('Size', 'futusign_overlayrss'),
+						'name' => 'size',
+						'type' => 'number',
+						'instructions' => __('The font size in pixels; minimum 10 pixels', 'futusign_overlayrss'),
+						'required' => 1,
+						'default_value' => 10,
+						'placeholder' => '',
+						'prepend' => '',
+						'append' => '',
+						'min' => 10,
+						'max' => '',
+						'step' => 1,
+					),
+					array (
+						'key' => 'field_acf_fs_or_theme',
+						'label' => __('Theme', 'futusign_overlayrss'),
+						'name' => 'theme',
+						'type' => 'select',
+						'instructions' => __('The color scheme', 'futusign_overlayrss'),
+						'required' => 1,
+						'choices' => array (
+							'dark' => 'dark',
+							'light' => 'light',
+						),
+						'default_value' => 'dark',
+						'allow_null' => 0,
+						'multiple' => 0,
+					),
+					array (
+						'key' => 'field_acf_fs_or_pub_dates',
+						'label' => __('Publication Dates', 'futusign_overlayrss'),
+						'name' => 'publication_dates',
+						'type' => 'radio',
+						'instructions' => __('Set to true to only show items with a publication date, sort by publication date, and show their date; false to show all items in the order provided by the RSS feed with no date shown', 'futusign_overlayrss'),
+						'required' => 1,
+						'choices' => array (
+							'false' => 'false',
+							'true' => 'true',
+						),
+						'other_choice' => 0,
+						'save_other_choice' => 0,
+						'default_value' => 'false',
+						'layout' => 'vertical',
+					),
+					array (
+						'key' => 'field_acf_fs_or_max_age',
+						'label' => __('Maximum Age', 'futusign-overlayrss'),
+						'name' => 'maximum_age',
+						'type' => 'number',
+						'instructions' => __('Only show items that are more recent than maximum age seconds; minimum 60 seconds', 'futusign_overlayrss'),
+						'required' => 1,
+						'conditional_logic' => array (
+							'status' => 1,
+							'rules' => array (
+								array (
+									'field' => 'field_acf_fs_or_pub_dates',
+									'operator' => '==',
+									'value' => 'true',
+								),
+							),
+							'allorany' => 'all',
+						),
+						'default_value' => 60,
+						'placeholder' => '',
+						'prepend' => '',
+						'append' => '',
+						'min' => 60,
+						'max' => '',
+						'step' => 1,
+					),
+					array (
+						'key' => 'field_acf_fs_or_parse',
+						'label' => __('Parse', 'futusign_overlayrss'),
+						'name' => 'parse',
+						'type' => 'text',
+						'instructions' => __('An advanced setting allowing you to parse the item\'s description for the matching and relevant content. Value needs to be a valid regular expression with a single capture', 'futusign-overlayrss'),
+						'required' => 1,
+						'default_value' => '^([^<]+)',
+						'placeholder' => '',
+						'prepend' => '',
+						'append' => '',
+						'formatting' => 'none',
+						'maxlength' => '',
+					),
+				),
+				'location' => array (
+					array (
+						array (
+							'param' => 'post_type',
+							'operator' => '==',
+							'value' => 'futusign_overlay_rss',
+							'order_no' => 0,
+							'group_no' => 0,
+						),
+					),
+				),
+				'options' => array (
+					'position' => 'normal',
+					'layout' => 'no_box',
+					'hide_on_screen' => array (
+						0 => 'permalink',
+						1 => 'the_content',
+						2 => 'excerpt',
+						3 => 'discussion',
+						4 => 'comments',
+						5 => 'revisions',
+						6 => 'slug',
+						7 => 'author',
+						8 => 'format',
+						9 => 'featured_image',
+						10 => 'categories',
+						11 => 'tags',
+						12 => 'send-trackbacks',
+					),
+				),
+				'menu_order' => 0,
+			));
+		}
+	}
+	/**
 	 * Create widget on publish
 	 *
 	 * @since    0.1.0
