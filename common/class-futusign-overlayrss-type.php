@@ -83,7 +83,6 @@ class Futusign_OverlayRSS_Type {
 	 */
 	public function unpublish( $ID, $post ) {
 		$strID = strval($ID);
-		$widgetIDs = array();
 		$args = array(
 			'post_type' => 'futusign_ov_widget',
 			'posts_per_page' => -1,
@@ -94,12 +93,9 @@ class Futusign_OverlayRSS_Type {
 			$loopID = get_the_ID();
 			$rssID = get_post_meta( $loopID, 'rssID', true );
 			if ( $rssID === $strID ) {
-				$widgetIDs[] = $loopID;
+				wp_delete_post($loopID, true);
 			}
 		}
 		wp_reset_query();
-		foreach ($widgetIDs as $widgetID) {
-			wp_delete_post($widgetID, true);
-		}
 	}
 }
