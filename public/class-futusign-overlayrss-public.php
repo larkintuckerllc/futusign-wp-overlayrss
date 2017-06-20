@@ -35,7 +35,8 @@ class Futusign_OverlayRSS_Public {
 	 */
 	public function single_template( $single ) {
 		global $post;
-		if ($post->post_type == 'futusign_ov_widget' && $post->post_title == 'RSS'){
+		$title = $post->post_title;
+		if ($post->post_type == 'futusign_ov_widget' && preg_match( '/^RSS/', $title ) === 1){
 			return plugin_dir_path( __FILE__ ) . 'futusign-overlayrss-template.php';
 		}
 		return $single;
