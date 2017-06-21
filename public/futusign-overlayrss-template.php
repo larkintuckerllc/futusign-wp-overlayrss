@@ -2,6 +2,7 @@
 if ( ! defined( 'WPINC' ) ) {
 	die;
 }
+add_action('wp_enqueue_scripts', 'fs_or_add_scripts');
 $fs_or_ID = get_the_ID();
 $fs_or_rssID = get_post_meta( $fs_or_ID, 'rssID', true );
 $fs_or_args = array(
@@ -31,8 +32,10 @@ header( 'Cache-Control: no-cache, no-store, must-revalidate');
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   <title>futusign Overlay RSS</title>
+	<link href="<?php echo plugins_url( 'rss/dist/styles.css',  __FILE__  ); ?>" rel="stylesheet" />
 </head>
 <body>
+	<div id="root"></div>
 	<script>
 		var fsOrURL = "<?php echo $fs_or_url; ?>";
 		var fsOrCycling = <?php echo $fs_or_cycling ?>;
@@ -43,5 +46,6 @@ header( 'Cache-Control: no-cache, no-store, must-revalidate');
 		var fsOrMaximumAge = fsOrPublicationDates ? Number("<?php echo $fs_or_maximum_age ?>") : null;
 		var fsOrParse = "<?php echo $fs_or_parse ?>";
 	</script>
+	<script src="<?php echo plugins_url( 'rss/dist/main.bundle.js',  __FILE__  ); ?>"></script>
 </body>
 </html>
