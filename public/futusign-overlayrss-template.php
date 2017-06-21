@@ -20,7 +20,7 @@ while ( $fs_or_loop->have_posts() ) {
 	$fs_or_theme = get_field('theme');
 	$fs_or_publication_dates = get_field('publication_dates');
 	$fs_or_maximum_age =  get_field('maximum_age');
-	$fs_or_parse = get_field('parse');
+	$fs_or_parse = get_field('parse', false, false);
 }
 wp_reset_query();
 // OUTPUT

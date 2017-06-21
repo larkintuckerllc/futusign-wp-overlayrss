@@ -75,7 +75,7 @@ class Futusign_OverlayRSS_Type {
 						'label' => __('Instructions', 'futusign_overlayrss'),
 						'name' => '',
 						'type' => 'message',
-						'message' => __('When updating; to force changes to all playing screens update version in futusign settings.', 'futusign_overlayrss'),
+						'message' => __('When updating; to force changes to all playing screens update version in futusign settings. Also, when updating, do not change the title.', 'futusign_overlayrss'),
 					),
 					array (
 						'key' => 'field_acf_fs_or_url',
@@ -198,7 +198,7 @@ class Futusign_OverlayRSS_Type {
 						'label' => __('Parse', 'futusign_overlayrss'),
 						'name' => 'parse',
 						'type' => 'text',
-						'instructions' => __('An advanced setting allowing you to parse the item\'s description for the matching and relevant content. Value needs to be a valid regular expression with a single capture', 'futusign-overlayrss'),
+						'instructions' => __('An advanced setting allowing you to parse the item\'s description for the matching and relevant content. Value needs to be a valid regular expression with a single capture; escape double-quotes', 'futusign-overlayrss'),
 						'required' => 1,
 						'default_value' => '^([^<]+)',
 						'placeholder' => '',
@@ -250,14 +250,32 @@ class Futusign_OverlayRSS_Type {
 	 * @param    string    $post          Post
 	 */
 	 public function publish( $ID, $post ) {
-		 $widgetID = wp_insert_post(
-			 array(
-				 'post_type' => 'futusign_ov_widget',
-				 'post_status' => 'publish',
-				 'post_title' => 'RSS - '. get_the_title($post),
-			 )
-		 );
-		 add_post_meta( $widgetID, 'rssID', strval($ID), true );
+		$IDStr = strval( $ID );
+		$new = true;
+		$args = array(
+			'post_type' => 'futusign_ov_widget',
+			'posts_per_page' => -1,
+		);
+		$loop = new WP_Query( $args );
+		while ( $loop->have_posts() ) {
+			$loop->the_post();
+			$loopID = get_the_ID();
+			$loopRssIDStr = get_post_meta( $loopID, 'rssID', true );
+			if ( $loopRssIDStr === $IDStr ) {
+				$new = false;
+			}
+		}
+		wp_reset_query();
+		if ($new) {
+			$widgetID = wp_insert_post(
+				 array(
+					 'post_type' => 'futusign_ov_widget',
+					 'post_status' => 'publish',
+					 'post_title' => 'RSS - '. get_the_title($post),
+				 )
+			 );
+			 add_post_meta( $widgetID, 'rssID', strval($ID), true );
+		 }
 	 }
 	/**
 	 * Remove widget on draft
