@@ -1,7 +1,17 @@
 #root {
   position: absolute;
-  top: 50%;
   left: 0px;
-  transform: translate(0px, -50%);
+  top: 0px;
+  width: 100%;
+  height: 100%;
+}
+#rootFrame {
+  position: absolute;
+  left: 0px;
+  width: 100%;
+}
+#rootMarquee {
+  position: absolute;
+  left: 0px;
   white-space: nowrap;
 }

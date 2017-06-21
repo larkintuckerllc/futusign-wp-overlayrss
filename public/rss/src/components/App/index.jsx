@@ -8,7 +8,6 @@ import * as fromItemIndex from '../../ducks/itemIndex';
 import * as fromItems from '../../ducks/items';
 import * as fromMarqueeStart from '../../ducks/marqueeStart';
 import Frame from './Frame';
-import Loading from './Loading';
 import Bad from './Bad';
 import Offline from './Offline';
 import Centered from './Centered';
@@ -68,7 +67,7 @@ class App extends Component {
       <Frame>
         {
           appBlocking &&
-          <Loading />
+          null
         }
         {
           !appBlocking &&
