@@ -64,7 +64,10 @@ class App extends Component {
       setMarqueeStart,
     } = this.props;
     return (
-      <Frame>
+      <Frame
+        empty={items.length === 0}
+        fetchItemsErrorMessage={fetchItemsErrorMessage}
+      >
         {
           appBlocking &&
           null

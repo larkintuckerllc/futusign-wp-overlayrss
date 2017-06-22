@@ -3,9 +3,11 @@ import PropTypes from 'prop-types';
 import { LIGHT, MARQUEE, SIZE } from '../../../strings';
 import styles from './index.scss';
 
-const Frame = ({ children }) => {
+const Frame = ({ children, empty, fetchItemsErrorMessage }) => {
   let className;
-  if (MARQUEE && LIGHT) {
+  if (empty || fetchItemsErrorMessage !== null) {
+    className = styles.rootEmpty;
+  } else if (MARQUEE && LIGHT) {
     className = styles.rootLightMarquee;
   } else if (MARQUEE && !LIGHT) {
     className = styles.rootDarkMarquee;
@@ -26,5 +28,10 @@ const Frame = ({ children }) => {
 };
 Frame.propTypes = {
   children: PropTypes.node.isRequired,
+  empty: PropTypes.bool.isRequired,
+  fetchItemsErrorMessage: PropTypes.string,
+};
+Frame.defaultProps = {
+  fetchItemsErrorMessage: null,
 };
 export default Frame;
