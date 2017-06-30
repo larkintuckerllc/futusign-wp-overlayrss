@@ -7,17 +7,17 @@ class Marquee extends Component {
   constructor(props) {
     super(props);
     this.transformY = POSITION === 'upper' || POSITION === 'lower' ? '0%' : '-50%';
-    this.positionStyle = {
-      top: '50%',
-    };
     if (POSITION === 'upper') {
       this.positionStyle = {
         top: '0px',
       };
-    }
-    if (POSITION === 'lower') {
+    } else if (POSITION === 'lower') {
       this.positionStyle = {
         bottom: '0px',
+      };
+    } else {
+      this.positionStyle = {
+        top: '50%',
       };
     }
   }

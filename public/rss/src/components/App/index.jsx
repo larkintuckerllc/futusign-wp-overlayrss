@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import moment from 'moment';
-import { CYCLING, MARQUEE, POLLING, PUB_DATES } from '../../strings';
+import { CYCLING, POLLING, PUB_DATES } from '../../strings';
 import * as fromAppBlocking from '../../ducks/appBlocking';
 import * as fromItemIndex from '../../ducks/itemIndex';
 import * as fromItems from '../../ducks/items';
@@ -10,7 +10,6 @@ import * as fromMarqueeStart from '../../ducks/marqueeStart';
 import Frame from './Frame';
 import Bad from './Bad';
 import Offline from './Offline';
-import Centered from './Centered';
 import Marquee from './Marquee';
 
 class App extends Component {
@@ -86,20 +85,6 @@ class App extends Component {
           !appBlocking &&
           fetchItemsErrorMessage === null &&
           items.length !== 0 &&
-          !MARQUEE &&
-          <Centered
-            text={
-              PUB_DATES
-              ? `${moment(items[itemIndex].pubDate).format('MMM D, h:mm A')} - ${items[itemIndex].description}`
-              : items[itemIndex].description
-            }
-          />
-        }
-        {
-          !appBlocking &&
-          fetchItemsErrorMessage === null &&
-          items.length !== 0 &&
-          MARQUEE &&
           <Marquee
             duration={CYCLING}
             marqueeStart={marqueeStart}

@@ -1,20 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { LIGHT, MARQUEE, SIZE } from '../../../strings';
+import { LIGHT, SIZE } from '../../../strings';
 import styles from './index.scss';
 
 const Frame = ({ children, empty, fetchItemsErrorMessage }) => {
   let className;
   if (empty || fetchItemsErrorMessage !== null) {
     className = styles.rootEmpty;
-  } else if (MARQUEE && LIGHT) {
+  } else if (LIGHT) {
     className = styles.rootLightMarquee;
-  } else if (MARQUEE && !LIGHT) {
+  } else if (!LIGHT) {
     className = styles.rootDarkMarquee;
-  } else if (!MARQUEE && LIGHT) {
-    className = styles.rootLight;
-  } else if (!MARQUEE && !LIGHT) {
-    className = styles.rootDark;
   }
   return (
     <div
