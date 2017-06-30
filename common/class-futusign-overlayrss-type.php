@@ -200,7 +200,7 @@ class Futusign_OverlayRSS_Type {
 						'type' => 'text',
 						'instructions' => __('An advanced setting allowing you to parse the item\'s description for the matching and relevant content. Value needs to be a valid regular expression with a single capture; escape double-quotes', 'futusign-overlayrss'),
 						'required' => 1,
-						'default_value' => '^([^<]+)',
+						'default_value' => '^(?:<[^>]*>)*([^<]*)',
 						'placeholder' => '',
 						'prepend' => '',
 						'append' => '',
