@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import moment from 'moment';
 import { CYCLING, POLLING, PUB_DATES } from '../../strings';
 import * as fromAppBlocking from '../../ducks/appBlocking';
-import * as fromItemIndex from '../../ducks/itemIndex';
 import * as fromItems from '../../ducks/items';
 import * as fromMarqueeStart from '../../ducks/marqueeStart';
 import Frame from './Frame';
@@ -26,18 +25,17 @@ class App extends Component {
     }, POLLING * 1000);
   }
   cycle() {
-    const { itemIndex, items, setItemIndex } = this.props;
+    const { items } = this.props;
     if (items.length === 0) return;
-    setItemIndex(itemIndex < items.length - 1 ? itemIndex + 1 : 0);
+    // TODO: TOGGLE EVEN / ODD
   }
   fetch() {
-    const { fetchItems, setAppBlocking, setItemIndex } = this.props;
+    const { fetchItems, setAppBlocking } = this.props;
     if (this.cyclingInterval !== null) {
       clearInterval(this.cyclingInterval);
       this.cyclingInterval = null;
     }
     setAppBlocking(true);
-    setItemIndex(0);
     return fetchItems()
       .then(
         () => {
@@ -57,7 +55,6 @@ class App extends Component {
     const {
       appBlocking,
       fetchItemsErrorMessage,
-      itemIndex,
       items,
       marqueeStart,
       setMarqueeStart,
@@ -91,8 +88,8 @@ class App extends Component {
             setMarqueeStart={setMarqueeStart}
             text={
               PUB_DATES
-              ? `${moment(items[itemIndex].pubDate).format('MMM D, h:mm A')} - ${items[itemIndex].description}`
-              : items[itemIndex].description
+              ? `${moment(items[0].pubDate).format('MMM D, h:mm A')} - ${items[0].description}`
+              : items[0].description
             }
           />
         }
@@ -105,10 +102,8 @@ App.propTypes = {
   fetchItems: PropTypes.func.isRequired,
   fetchItemsErrorMessage: PropTypes.string,
   marqueeStart: PropTypes.bool.isRequired,
-  itemIndex: PropTypes.number.isRequired,
   items: PropTypes.arrayOf(PropTypes.object).isRequired,
   setAppBlocking: PropTypes.func.isRequired,
-  setItemIndex: PropTypes.func.isRequired,
   setMarqueeStart: PropTypes.func.isRequired,
 };
 App.defaultProps = {
@@ -118,13 +113,11 @@ export default connect(
   state => ({
     appBlocking: fromAppBlocking.getAppBlocking(state),
     fetchItemsErrorMessage: fromItems.getFetchItemsErrorMessage(state),
-    itemIndex: fromItemIndex.getItemIndex(state),
     items: fromItems.getItems(state),
     marqueeStart: fromMarqueeStart.getMarqueeStart(state),
   }), {
     fetchItems: fromItems.fetchItems,
     setAppBlocking: fromAppBlocking.setAppBlocking,
-    setItemIndex: fromItemIndex.setItemIndex,
     setMarqueeStart: fromMarqueeStart.setMarqueeStart,
   },
 )(App);
