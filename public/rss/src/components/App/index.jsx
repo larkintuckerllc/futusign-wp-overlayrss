@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import moment from 'moment';
 import { CYCLING, POLLING, PUB_DATES } from '../../strings';
 import * as fromAppBlocking from '../../ducks/appBlocking';
+import * as fromEven from '../../ducks/even';
 import * as fromItems from '../../ducks/items';
 import * as fromMarqueeStart from '../../ducks/marqueeStart';
 import Frame from './Frame';
@@ -99,11 +100,13 @@ class App extends Component {
 }
 App.propTypes = {
   appBlocking: PropTypes.bool.isRequired,
+  even: PropTypes.bool.isRequired,
   fetchItems: PropTypes.func.isRequired,
   fetchItemsErrorMessage: PropTypes.string,
   marqueeStart: PropTypes.bool.isRequired,
   items: PropTypes.arrayOf(PropTypes.object).isRequired,
   setAppBlocking: PropTypes.func.isRequired,
+  setEven: PropTypes.func.isRequired,
   setMarqueeStart: PropTypes.func.isRequired,
 };
 App.defaultProps = {
@@ -113,11 +116,13 @@ export default connect(
   state => ({
     appBlocking: fromAppBlocking.getAppBlocking(state),
     fetchItemsErrorMessage: fromItems.getFetchItemsErrorMessage(state),
+    even: fromEven.getEven(state),
     items: fromItems.getItems(state),
     marqueeStart: fromMarqueeStart.getMarqueeStart(state),
   }), {
     fetchItems: fromItems.fetchItems,
     setAppBlocking: fromAppBlocking.setAppBlocking,
+    setEven: fromEven.setEven,
     setMarqueeStart: fromMarqueeStart.setMarqueeStart,
   },
 )(App);
