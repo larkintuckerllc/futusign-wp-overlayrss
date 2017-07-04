@@ -53,6 +53,22 @@ const isFetching = (state = false, action) => {
       return state;
   }
 };
+const length = (state = 0, action) => {
+  // TODO: ACCOUNT FOR DATES AND TITLES
+  switch (action.type) {
+    case FETCH_ITEMS_SUCCESS: {
+      let count = 0;
+      const countIds = action.response.result;
+      for (let i = 0; i < countIds.length; i += 1) {
+        const countId = countIds[i];
+        count += action.response.entities.items[countId].description.length;
+      }
+      return count;
+    }
+    default:
+      return state;
+  }
+};
 const fetchErrorMessage = (state = null, action) => {
   switch (action.type) {
     case FETCH_ITEMS_ERROR:
@@ -69,6 +85,7 @@ export default combineReducers({
   ids,
   isFetching,
   fetchErrorMessage,
+  length,
 });
 // ACCESSORS AKA SELECTORS
 export const getItem = (state, id) => state.items.byId[id];
@@ -80,6 +97,7 @@ export const getItems = createSelector(
 );
 export const getIsFetchingItems = state => state.items.isFetching;
 export const getFetchItemsErrorMessage = state => state.items.fetchErrorMessage;
+export const getLength = state => state.items.length;
 // ACTION CREATOR VALIDATORS
 // ACTION CREATORS
 export const fetchItems = () => (dispatch, getState) => {
