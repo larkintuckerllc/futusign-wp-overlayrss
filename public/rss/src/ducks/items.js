@@ -1,7 +1,8 @@
 import { combineReducers } from 'redux';
 import { normalize, schema } from 'normalizr';
 import { createSelector } from 'reselect';
-import { ACTION_PREFIX } from '../strings';
+import moment from 'moment';
+import { ACTION_PREFIX, PUB_DATES } from '../strings';
 import { ServerException } from '../util/exceptions';
 // API
 import { get } from '../apis/feed';
@@ -53,22 +54,6 @@ const isFetching = (state = false, action) => {
       return state;
   }
 };
-const length = (state = 0, action) => {
-  // TODO: ACCOUNT FOR DATES AND TITLES
-  switch (action.type) {
-    case FETCH_ITEMS_SUCCESS: {
-      let count = 0;
-      const countIds = action.response.result;
-      for (let i = 0; i < countIds.length; i += 1) {
-        const countId = countIds[i];
-        count += action.response.entities.items[countId].description.length;
-      }
-      return count;
-    }
-    default:
-      return state;
-  }
-};
 const fetchErrorMessage = (state = null, action) => {
   switch (action.type) {
     case FETCH_ITEMS_ERROR:
@@ -85,7 +70,6 @@ export default combineReducers({
   ids,
   isFetching,
   fetchErrorMessage,
-  length,
 });
 // ACCESSORS AKA SELECTORS
 export const getItem = (state, id) => state.items.byId[id];
@@ -97,7 +81,19 @@ export const getItems = createSelector(
 );
 export const getIsFetchingItems = state => state.items.isFetching;
 export const getFetchItemsErrorMessage = state => state.items.fetchErrorMessage;
-export const getLength = state => state.items.length;
+export const getText = createSelector(
+  [getItemsIds, getItemsById],
+  (itemsIds, itemsById) => {
+    const items = itemsIds.map(id => itemsById[id]);
+    let text = '';
+    for (let i = 0; i < items.length; i += 1) {
+      text += PUB_DATES
+        ? `${moment(items[i].pubDate).format('MMM D, h:mm A')} - ${items[i].description}`
+        : items[i].description;
+    }
+    return text;
+  },
+);
 // ACTION CREATOR VALIDATORS
 // ACTION CREATORS
 export const fetchItems = () => (dispatch, getState) => {
