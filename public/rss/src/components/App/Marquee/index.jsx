@@ -26,9 +26,9 @@ class Marquee extends Component {
     this.animate();
   }
   componentDidUpdate(prevProps) {
-    const prevText = prevProps.text;
-    const { text } = this.props;
-    if (prevText !== text) this.animate();
+    const prevEven = prevProps.even;
+    const { even } = this.props;
+    if (prevEven !== even) this.animate();
   }
   animate() {
     const { setMarqueeStart } = this.props;
@@ -78,6 +78,7 @@ class Marquee extends Component {
 }
 Marquee.propTypes = {
   duration: PropTypes.number.isRequired,
+  even: PropTypes.bool.isRequired,
   marqueeStart: PropTypes.bool.isRequired,
   setMarqueeStart: PropTypes.func.isRequired,
   text: PropTypes.string.isRequired,

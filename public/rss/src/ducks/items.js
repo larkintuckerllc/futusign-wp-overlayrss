@@ -72,13 +72,8 @@ export default combineReducers({
   fetchErrorMessage,
 });
 // ACCESSORS AKA SELECTORS
-export const getItem = (state, id) => state.items.byId[id];
 const getItemsIds = state => state.items.ids;
 const getItemsById = state => state.items.byId;
-export const getItems = createSelector(
-  [getItemsIds, getItemsById],
-  (itemsIds, itemsById) => itemsIds.map(id => itemsById[id]),
-);
 export const getIsFetchingItems = state => state.items.isFetching;
 export const getFetchItemsErrorMessage = state => state.items.fetchErrorMessage;
 export const getText = createSelector(

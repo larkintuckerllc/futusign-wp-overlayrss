@@ -59,15 +59,15 @@ class App extends Component {
     // TODO: WORK IN CYCLING
     const {
       appBlocking,
+      even,
       fetchItemsErrorMessage,
-      items,
       marqueeStart,
       setMarqueeStart,
       text,
     } = this.props;
     return (
       <Frame
-        empty={items.length === 0}
+        empty={text.length === 0}
         fetchItemsErrorMessage={fetchItemsErrorMessage}
       >
         {
@@ -87,9 +87,10 @@ class App extends Component {
         {
           !appBlocking &&
           fetchItemsErrorMessage === null &&
-          items.length !== 0 &&
+          text.length !== 0 &&
           <Marquee
             duration={text.length / 10}
+            even={even}
             marqueeStart={marqueeStart}
             setMarqueeStart={setMarqueeStart}
             text={text}
@@ -105,7 +106,6 @@ App.propTypes = {
   fetchItems: PropTypes.func.isRequired,
   fetchItemsErrorMessage: PropTypes.string,
   marqueeStart: PropTypes.bool.isRequired,
-  items: PropTypes.arrayOf(PropTypes.object).isRequired,
   setAppBlocking: PropTypes.func.isRequired,
   setEven: PropTypes.func.isRequired,
   setMarqueeStart: PropTypes.func.isRequired,
@@ -119,7 +119,6 @@ export default connect(
     appBlocking: fromAppBlocking.getAppBlocking(state),
     fetchItemsErrorMessage: fromItems.getFetchItemsErrorMessage(state),
     even: fromEven.getEven(state),
-    items: fromItems.getItems(state),
     marqueeStart: fromMarqueeStart.getMarqueeStart(state),
     text: fromItems.getText(state),
   }), {
