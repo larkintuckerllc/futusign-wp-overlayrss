@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { POLLING } from '../../strings';
-import * as fromAppBlocking from '../../ducks/appBlocking';
+import { CYCLING, POLLING } from '../../strings';
 import * as fromEven from '../../ducks/even';
 import * as fromItems from '../../ducks/items';
 import * as fromMarqueeStart from '../../ducks/marqueeStart';
@@ -16,8 +15,6 @@ class App extends Component {
     super(props);
     this.cycle = this.cycle.bind(this);
     this.fetch = this.fetch.bind(this);
-    this.handleFetch = this.handleFetch.bind(this);
-    this.cyclingInterval = null;
   }
   componentDidMount() {
     this.fetch();
@@ -31,34 +28,22 @@ class App extends Component {
   }
   fetch() {
     // TODO: MORE GRACEFUL FETCH
-    const { fetchItems, setAppBlocking } = this.props;
-    if (this.cyclingInterval !== null) {
-      clearInterval(this.cyclingInterval);
-      this.cyclingInterval = null;
-    }
-    setAppBlocking(true);
+    const {
+      fetchItems,
+    } = this.props;
     return fetchItems()
       .then(
-        this.handleFetch,
+        () => {},
         (error) => {
           if (process.env.NODE_ENV !== 'production'
             && error.name !== 'ServerException') {
             window.console.log(error);
           }
-          setAppBlocking(false);
         },
       );
   }
-  handleFetch() {
-    // TODO: WORK IN CYCLING
-    const { text, setAppBlocking } = this.props;
-    setAppBlocking(false);
-    this.cyclingInterval = setInterval(this.cycle, (text.length / 10) * 1000);
-  }
   render() {
-    // TODO: WORK IN CYCLING
     const {
-      appBlocking,
       even,
       fetchItemsErrorMessage,
       marqueeStart,
@@ -71,25 +56,18 @@ class App extends Component {
         fetchItemsErrorMessage={fetchItemsErrorMessage}
       >
         {
-          appBlocking &&
-          null
-        }
-        {
-          !appBlocking &&
           fetchItemsErrorMessage === '400' &&
           <Bad />
         }
         {
-          !appBlocking &&
           fetchItemsErrorMessage === '500' &&
           <Offline />
         }
         {
-          !appBlocking &&
           fetchItemsErrorMessage === null &&
           text.length !== 0 &&
           <Marquee
-            duration={text.length / 10}
+            duration={text.length / CYCLING}
             even={even}
             marqueeStart={marqueeStart}
             setMarqueeStart={setMarqueeStart}
@@ -101,12 +79,10 @@ class App extends Component {
   }
 }
 App.propTypes = {
-  appBlocking: PropTypes.bool.isRequired,
   even: PropTypes.bool.isRequired,
   fetchItems: PropTypes.func.isRequired,
   fetchItemsErrorMessage: PropTypes.string,
   marqueeStart: PropTypes.bool.isRequired,
-  setAppBlocking: PropTypes.func.isRequired,
   setEven: PropTypes.func.isRequired,
   setMarqueeStart: PropTypes.func.isRequired,
   text: PropTypes.string.isRequired,
@@ -116,14 +92,12 @@ App.defaultProps = {
 };
 export default connect(
   state => ({
-    appBlocking: fromAppBlocking.getAppBlocking(state),
     fetchItemsErrorMessage: fromItems.getFetchItemsErrorMessage(state),
     even: fromEven.getEven(state),
     marqueeStart: fromMarqueeStart.getMarqueeStart(state),
     text: fromItems.getText(state),
   }), {
     fetchItems: fromItems.fetchItems,
-    setAppBlocking: fromAppBlocking.setAppBlocking,
     setEven: fromEven.setEven,
     setMarqueeStart: fromMarqueeStart.setMarqueeStart,
   },
