@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { CYCLING, POLLING } from '../../strings';
+import { CYCLING, POLLING, SIZE } from '../../strings';
 import * as fromEven from '../../ducks/even';
 import * as fromItems from '../../ducks/items';
 import * as fromMarqueeStart from '../../ducks/marqueeStart';
@@ -17,20 +17,21 @@ class App extends Component {
     this.fetch = this.fetch.bind(this);
   }
   componentDidMount() {
-    this.fetch();
+    this.fetch()
+    .then(this.cycle);
     setInterval(() => {
       this.fetch();
     }, POLLING * 1000);
   }
   cycle() {
-    const { even, setEven } = this.props;
-    setEven(!even);
+    setTimeout(() => {
+      const { even, setEven } = this.props;
+      this.cycle();
+      setEven(!even);
+    }, (this.duration() * 1000));
   }
   fetch() {
-    // TODO: MORE GRACEFUL FETCH
-    const {
-      fetchItems,
-    } = this.props;
+    const { fetchItems } = this.props;
     return fetchItems()
       .then(
         () => {},
@@ -41,6 +42,10 @@ class App extends Component {
           }
         },
       );
+  }
+  duration() {
+    const { text } = this.props;
+    return (((text.length + (window.innerWidth / SIZE)) / CYCLING));
   }
   render() {
     const {
@@ -67,7 +72,7 @@ class App extends Component {
           fetchItemsErrorMessage === null &&
           text.length !== 0 &&
           <Marquee
-            duration={text.length / CYCLING}
+            duration={this.duration()}
             even={even}
             marqueeStart={marqueeStart}
             setMarqueeStart={setMarqueeStart}

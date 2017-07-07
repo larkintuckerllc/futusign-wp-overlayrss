@@ -25,6 +25,14 @@ class Marquee extends Component {
     this.rootEl = document.getElementById(styles.rootMarquee);
     this.animate();
   }
+  shouldComponentUpdate(nextProps) {
+    const nextEven = nextProps.even;
+    const nextMarqueeStart = nextProps.marqueeStart;
+    const { even, marqueeStart } = this.props;
+    if (nextEven !== even) return true;
+    if (nextMarqueeStart !== marqueeStart) return true;
+    return false;
+  }
   componentDidUpdate(prevProps) {
     const prevEven = prevProps.even;
     const { even } = this.props;

@@ -80,8 +80,10 @@ export const getText = createSelector(
   [getItemsIds, getItemsById],
   (itemsIds, itemsById) => {
     const items = itemsIds.map(id => itemsById[id]);
+    // TODO: MAKE SETTING
+    const count = Math.min(items.length, 2);
     let text = '';
-    for (let i = 0; i < items.length; i += 1) {
+    for (let i = 0; i < count; i += 1) {
       text += PUB_DATES
         ? `${moment(items[i].pubDate).format('MMM D, h:mm A')} - ${items[i].description}`
         : items[i].description;
