@@ -1,6 +1,13 @@
 import jsonp from 'jsonp';
 import moment from 'moment';
-import { MAX_AGE, PARSE, PUB_DATES, URL } from '../strings';
+import {
+  DESCRIPTION,
+  MAX_AGE,
+  PARSE,
+  PUB_DATES,
+  TITLE,
+  URL,
+} from '../strings';
 
 const TIMEOUT = 10 * 1000;
 const RE = new RegExp(PARSE, 'm');
@@ -39,19 +46,23 @@ export const get = () => {
         maxAgeM = moment().subtract(MAX_AGE, 's');
       }
       let transformed = data.query.results.item.map((o, i) => {
-        // TODO: RETHINK TITLE OR DESCRIPTION REQUIRED
-        const title = o.title !== undefined ? o.title : null;
-        let description = o.description;
-        if (description === undefined) return null;
-        const match = RE.exec(description);
-        if (match === null) return null;
-        description = match[1];
-        if (description === '') return null;
         const value = {
           id: i,
-          title,
-          description,
         };
+        // TITLE
+        if (TITLE && o.title === undefined) return null;
+        if (TITLE) value.title = o.title;
+        // DESCRIPTION
+        if (DESCRIPTION && o.description === undefined) return null;
+        if (DESCRIPTION) {
+          let description = o.description;
+          const match = RE.exec(description);
+          if (match === null) return null;
+          description = match[1];
+          if (description === '') return null;
+          value.description = description;
+        }
+        // PUB_DATES
         const dateM = moment(o.pubDate);
         if (PUB_DATES && !dateM.isValid()) return null;
         if (
@@ -60,6 +71,7 @@ export const get = () => {
           dateM.isBefore(maxAgeM)
         ) return null;
         if (PUB_DATES) value.pubDate = dateM.valueOf();
+        // RETURN
         return value;
       });
       transformed = transformed.filter(o => o !== null);
