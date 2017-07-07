@@ -2,7 +2,7 @@ import { combineReducers } from 'redux';
 import { normalize, schema } from 'normalizr';
 import { createSelector } from 'reselect';
 import moment from 'moment';
-import { ACTION_PREFIX, PUB_DATES } from '../strings';
+import { ACTION_PREFIX, LIMIT_ITEMS, MAX_ITEMS, PUB_DATES } from '../strings';
 import { ServerException } from '../util/exceptions';
 // API
 import { get } from '../apis/feed';
@@ -80,8 +80,9 @@ export const getText = createSelector(
   [getItemsIds, getItemsById],
   (itemsIds, itemsById) => {
     const items = itemsIds.map(id => itemsById[id]);
-    // TODO: MAKE SETTING
-    const count = Math.min(items.length, 2);
+    const count = LIMIT_ITEMS ?
+      Math.min(items.length, MAX_ITEMS) :
+      items.length;
     let text = '';
     for (let i = 0; i < count; i += 1) {
       text += PUB_DATES
