@@ -51,6 +51,7 @@ class App extends Component {
     const {
       even,
       fetchItemsErrorMessage,
+      items,
       marqueeStart,
       setMarqueeStart,
       text,
@@ -74,9 +75,9 @@ class App extends Component {
           <Marquee
             duration={this.duration()}
             even={even}
+            items={items}
             marqueeStart={marqueeStart}
             setMarqueeStart={setMarqueeStart}
-            text={text}
           />
         }
       </Frame>
@@ -87,6 +88,8 @@ App.propTypes = {
   even: PropTypes.bool.isRequired,
   fetchItems: PropTypes.func.isRequired,
   fetchItemsErrorMessage: PropTypes.string,
+  // eslint-disable-next-line
+  items: PropTypes.array.isRequired,
   marqueeStart: PropTypes.bool.isRequired,
   setEven: PropTypes.func.isRequired,
   setMarqueeStart: PropTypes.func.isRequired,
@@ -99,6 +102,7 @@ export default connect(
   state => ({
     fetchItemsErrorMessage: fromItems.getFetchItemsErrorMessage(state),
     even: fromEven.getEven(state),
+    items: fromItems.getItems(state),
     marqueeStart: fromMarqueeStart.getMarqueeStart(state),
     text: fromItems.getText(state),
   }), {

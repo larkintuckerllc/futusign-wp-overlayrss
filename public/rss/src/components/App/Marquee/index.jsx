@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { LIGHT, POSITION, SIZE } from '../../../strings';
+import Text from './Text';
 import styles from './index.scss';
 
 class Marquee extends Component {
@@ -46,7 +47,7 @@ class Marquee extends Component {
     }, 1000);
   }
   render() {
-    const { duration, marqueeStart, text } = this.props;
+    const { duration, items, marqueeStart } = this.props;
     const windowWidth = window.innerWidth;
     const rootWidth = this.rootEl !== undefined
       ? this.rootEl.offsetWidth
@@ -79,7 +80,7 @@ class Marquee extends Component {
               transform: `translate(${windowWidth.toString()}px, ${this.transformY})`,
             }),
           }}
-        >{text}</div>
+        ><Text items={items} /></div>
       </div>
     );
   }
@@ -87,8 +88,9 @@ class Marquee extends Component {
 Marquee.propTypes = {
   duration: PropTypes.number.isRequired,
   even: PropTypes.bool.isRequired,
+  // eslint-disable-next-line
+  items: PropTypes.array.isRequired,
   marqueeStart: PropTypes.bool.isRequired,
   setMarqueeStart: PropTypes.func.isRequired,
-  text: PropTypes.string.isRequired,
 };
 export default Marquee;
