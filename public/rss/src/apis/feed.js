@@ -5,7 +5,7 @@ import { MAX_AGE, PARSE, PUB_DATES, URL } from '../strings';
 const TIMEOUT = 10 * 1000;
 const RE = new RegExp(PARSE, 'm');
 const YQL_ENDPOINT = 'https://query.yahooapis.com/v1/public/yql';
-const YQL_SELECT = encodeURI('select pubDate, description ');
+const YQL_SELECT = encodeURI('select pubDate, title, description ');
 const YQL_FROM = encodeURI('from rss ');
 const YQL_WHERE = encodeURI(`where url="${URL}"`);
 const YQL_URL = `${YQL_ENDPOINT}?q=${YQL_SELECT}${YQL_FROM}${YQL_WHERE}&format=json`;
@@ -39,6 +39,8 @@ export const get = () => {
         maxAgeM = moment().subtract(MAX_AGE, 's');
       }
       let transformed = data.query.results.item.map((o, i) => {
+        // TODO: RETHINK TITLE OR DESCRIPTION REQUIRED
+        const title = o.title !== undefined ? o.title : null;
         let description = o.description;
         if (description === undefined) return null;
         const match = RE.exec(description);
@@ -47,6 +49,7 @@ export const get = () => {
         if (description === '') return null;
         const value = {
           id: i,
+          title,
           description,
         };
         const dateM = moment(o.pubDate);

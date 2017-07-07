@@ -86,11 +86,9 @@ export const getText = createSelector(
     let text = '';
     for (let i = 0; i < count; i += 1) {
       text += PUB_DATES
-        ? `${moment(items[i].pubDate).format('MMM D, h:mm A')} - ${items[i].description}`
-        : items[i].description;
-      if (i !== count - 1) {
-       text += ' \u25cf '; 
-      }
+        ? `${moment(items[i].pubDate).format('MMM D, h:mm A')} - ${items[i].title}: ${items[i].description}`
+        : `${items[i].title}: ${items[i].description}`;
+      if (i !== count - 1) text += ' \u25cf ';
     }
     return text;
   },
