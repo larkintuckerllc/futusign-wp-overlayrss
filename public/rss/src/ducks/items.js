@@ -5,7 +5,9 @@ import moment from 'moment';
 import {
   ACTION_PREFIX,
   DESCRIPTION,
+  LIMIT_DESCRIPTION,
   LIMIT_ITEMS,
+  MAX_DESCRIPTION,
   MAX_ITEMS,
   PUB_DATES,
   TITLE,
@@ -91,11 +93,11 @@ export const getText = createSelector(
   [getItemsIds, getItemsById],
   (itemsIds, itemsById) => {
     const items = itemsIds.map(id => itemsById[id]);
-    const count = LIMIT_ITEMS ?
+    const countItems = LIMIT_ITEMS ?
       Math.min(items.length, MAX_ITEMS) :
       items.length;
     let text = '';
-    for (let i = 0; i < count; i += 1) {
+    for (let i = 0; i < countItems; i += 1) {
       const item = items[i];
       // PUB_DATES
       if (PUB_DATES) text += `${moment(item.pubDate).format('MMM D, h:mm A')} - `;
@@ -103,8 +105,14 @@ export const getText = createSelector(
       if (TITLE) text += `${item.title}`;
       // DESCRIPTION
       if (TITLE && DESCRIPTION) text += ': ';
-      if (DESCRIPTION) text += item.description;
-      if (i !== count - 1) text += ' \u25cf ';
+      if (DESCRIPTION) {
+        const countDescription = LIMIT_DESCRIPTION ?
+          Math.min(item.description.length, MAX_DESCRIPTION) :
+          item.description.length;
+        text += item.description.slice(0, countDescription);
+        if (LIMIT_DESCRIPTION) text += '...';
+      }
+      if (i !== countItems - 1) text += ' \u25cf ';
     }
     return text;
   },
