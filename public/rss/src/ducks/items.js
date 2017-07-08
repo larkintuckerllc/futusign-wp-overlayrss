@@ -2,7 +2,14 @@ import { combineReducers } from 'redux';
 import { normalize, schema } from 'normalizr';
 import { createSelector } from 'reselect';
 import moment from 'moment';
-import { ACTION_PREFIX, LIMIT_ITEMS, MAX_ITEMS, PUB_DATES } from '../strings';
+import {
+  ACTION_PREFIX,
+  DESCRIPTION,
+  LIMIT_ITEMS,
+  MAX_ITEMS,
+  PUB_DATES,
+  TITLE,
+} from '../strings';
 import { ServerException } from '../util/exceptions';
 // API
 import { get } from '../apis/feed';
@@ -89,9 +96,14 @@ export const getText = createSelector(
       items.length;
     let text = '';
     for (let i = 0; i < count; i += 1) {
-      text += PUB_DATES
-        ? `${moment(items[i].pubDate).format('MMM D, h:mm A')} - ${items[i].title}: ${items[i].description}`
-        : `${items[i].title}: ${items[i].description}`;
+      const item = items[i];
+      // PUB_DATES
+      if (PUB_DATES) text += `${moment(item.pubDate).format('MMM D, h:mm A')} - `;
+      // TITLE
+      if (TITLE) text += `${item.title}`;
+      // DESCRIPTION
+      if (TITLE && DESCRIPTION) text += ': ';
+      if (DESCRIPTION) text += item.description;
       if (i !== count - 1) text += ' \u25cf ';
     }
     return text;

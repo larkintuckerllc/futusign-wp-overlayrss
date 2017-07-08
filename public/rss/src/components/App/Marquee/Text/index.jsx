@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
-import { LIMIT_ITEMS, MAX_ITEMS, PUB_DATES } from '../../../../strings';
+import { DESCRIPTION, LIMIT_ITEMS, MAX_ITEMS, PUB_DATES, TITLE } from '../../../../strings';
 
 const Text = ({ items }) => {
   const count = LIMIT_ITEMS ?
@@ -15,8 +15,9 @@ const Text = ({ items }) => {
           key={o.id}
         >
           {PUB_DATES && <b>{moment(o.pubDate).format('MMM D, h:mm A')} - </b>}
-          <b>{o.title}: </b>
-          {o.description}
+          {TITLE && !DESCRIPTION && o.title}
+          {TITLE && DESCRIPTION && <b>{o.title}: </b>}
+          {DESCRIPTION && o.description}
           {i !== count - 1 && ' \u25cf '}
         </span>
       ))}
