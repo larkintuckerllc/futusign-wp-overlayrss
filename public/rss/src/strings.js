@@ -16,4 +16,5 @@ export const TITLE = window.fsOrTitle;
 export const DESCRIPTION = window.fsOrDescription;
 export const LIMIT_DESCRIPTION = window.fsOrLimitDescription;
 export const MAX_DESCRIPTION = window.fsOrMaximumDescription;
-export const PARSE = window.fsOrParse;
+export const TITLE_PARSE = window.fsOrTitleParse;
+export const DESCRIPTION_PARSE = window.fsOrDescriptionParse;

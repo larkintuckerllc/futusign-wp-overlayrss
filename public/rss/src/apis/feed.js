@@ -2,15 +2,17 @@ import jsonp from 'jsonp';
 import moment from 'moment';
 import {
   DESCRIPTION,
+  DESCRIPTION_PARSE,
   MAX_AGE,
-  PARSE,
   PUB_DATES,
   TITLE,
+  TITLE_PARSE,
   URL,
 } from '../strings';
 
 const TIMEOUT = 10 * 1000;
-const RE = new RegExp(PARSE, 'm');
+const RE_DESCRIPTION = new RegExp(DESCRIPTION_PARSE, 'm');
+const RE_TITLE = new RegExp(TITLE_PARSE, 'm');
 const YQL_ENDPOINT = 'https://query.yahooapis.com/v1/public/yql';
 const YQL_SELECT = encodeURI('select pubDate, title, description ');
 const YQL_FROM = encodeURI('from rss ');
@@ -51,12 +53,19 @@ export const get = () => {
         };
         // TITLE
         if (TITLE && o.title === undefined) return null;
-        if (TITLE) value.title = o.title;
+        if (TITLE) {
+          let title = o.title;
+          const match = RE_TITLE.exec(title);
+          if (match === null) return null;
+          title = match[1];
+          if (title === '') return null;
+          value.title = title;
+        }
         // DESCRIPTION
         if (DESCRIPTION && o.description === undefined) return null;
         if (DESCRIPTION) {
           let description = o.description;
-          const match = RE.exec(description);
+          const match = RE_DESCRIPTION.exec(description);
           if (match === null) return null;
           description = match[1];
           if (description === '') return null;
