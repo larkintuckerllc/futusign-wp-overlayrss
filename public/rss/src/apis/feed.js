@@ -44,7 +44,7 @@ export const get = () => {
         return;
       }
       let maxAgeM = null;
-      if (PUB_DATES && MAX_AGE !== Infinity) {
+      if (PUB_DATES) {
         maxAgeM = moment().subtract(MAX_AGE, 's');
       }
       let transformed = data.query.results.item.map((o, i) => {
@@ -72,11 +72,10 @@ export const get = () => {
           value.description = description;
         }
         // PUB_DATES
+        if (PUB_DATES && o.pubDate === undefined) return null;
         const dateM = moment(o.pubDate);
-        if (PUB_DATES && !dateM.isValid()) return null;
         if (
           PUB_DATES &&
-          maxAgeM !== null &&
           dateM.isBefore(maxAgeM)
         ) return null;
         if (PUB_DATES) value.pubDate = dateM.valueOf();
