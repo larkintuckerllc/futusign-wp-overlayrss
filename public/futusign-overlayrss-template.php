@@ -18,9 +18,16 @@ while ( $fs_or_loop->have_posts() ) {
 	$fs_or_polling = get_field('polling');
 	$fs_or_size = get_field('size');
 	$fs_or_theme = get_field('theme');
+	$fs_or_limit_items = get_field('limit_items');
+	$fs_or_maximum_items = get_field('maximum_items');
 	$fs_or_publication_dates = get_field('publication_dates');
 	$fs_or_maximum_age =  get_field('maximum_age');
-	$fs_or_parse = get_field('parse', false, false);
+	$fs_or_title = get_field('title');
+	$fs_or_description = get_field('description');
+	$fs_or_limit_description = get_field('limit_description');
+	$fs_or_maximum_description = get_field('maximum_description');
+	$fs_or_title_parse = get_field('title_parse', false, false);
+	$fs_or_description_parse = get_field('description_parse', false, false);
 }
 wp_reset_query();
 // OUTPUT
@@ -42,9 +49,16 @@ header( 'Cache-Control: no-cache, no-store, must-revalidate');
 		var fsOrPolling = <?php echo $fs_or_polling ?>;
 		var fsOrSize = <?php echo $fs_or_size ?>;
 		var fsOrTheme = "<?php echo $fs_or_theme ?>";
+		var fsOrLimitItems = <?php echo $fs_or_limit_items ?>;
+		var fsOrMaximumItems = fsOrLimitItems ? Number("<?php echo $fs_or_maximum_items ?>") : null;
 		var fsOrPublicationDates = <?php echo $fs_or_publication_dates ?>;
 		var fsOrMaximumAge = fsOrPublicationDates ? Number("<?php echo $fs_or_maximum_age ?>") : null;
-		var fsOrParse = "<?php echo $fs_or_parse ?>";
+		var fsOrTitle = <?php echo $fs_or_title ?>;
+		var fsOrDescription = <?php echo $fs_or_description ?>;
+		var fsOrLimitDescription = <?php echo $fs_or_limit_description ?>;
+		var fsOrMaximumDescription = fsOrLimitDescription ? Number("<?php echo $fs_or_maximum_description ?>") : null;
+		var fsOrTitleParse = "<?php echo $fs_or_title_parse ?>";
+		var fsOrDescriptionParse = "<?php echo $fs_or_description_parse ?>";
 	</script>
 	<script src="<?php echo plugins_url( 'rss/dist/main.bundle.js',  __FILE__  ); ?>"></script>
 </body>
