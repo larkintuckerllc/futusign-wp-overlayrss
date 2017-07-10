@@ -1,7 +1,7 @@
 {
     "name" : "futusign Overlay RSS",
     "slug" : "futusignz-overlayrss",
-    "download_url" : "http://futusign-wordpress.s3-website-us-east-1.amazonaws.com/futusignz-overlayrss-0-1-0.zip",
+    "download_url" : "http://futusign-wordpress.s3-website-us-east-1.amazonaws.com/futusignz-overlayrss-0-2-0.zip",
     "version" : "0.2.0",
     "author" : "John Tucker",
     "sections" : {
