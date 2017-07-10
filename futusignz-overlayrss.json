@@ -2,19 +2,19 @@
     "name" : "futusign Overlay RSS",
     "slug" : "futusignz-overlayrss",
     "download_url" : "http://futusign-wordpress.s3-website-us-east-1.amazonaws.com/futusignz-overlayrss-0-1-0.zip",
-    "version" : "0.1.0",
+    "version" : "0.2.0",
     "author" : "John Tucker",
     "sections" : {
         "description" : "Add futusign Overlay RSS feature",
         "installation": "Upload and activate the <code>futusignz-overlayrss</code> plugin via the plugin admin page",
-        "changelog" : "<p><b>0.1.0</b></p><p>Initial release</p>"
+        "changelog" : "<p><b>0.2.0</b></p><p>Continuous scrolling and a lot of options</p><p><b>0.1.0</b></p><p>Initial release</p>"
     },
     "homepage": "https://www.futusign.com",
     "requires": "4.3",
     "tested": "4.7",
     "author_homepage": "https://github.com/larkintuckerllc",
-    "last_updated": "2017-06-22 00:00:00",
-    "upgrade_notice": "Initial Release",
+    "last_updated": "2017-07-09 00:00:00",
+    "upgrade_notice": "Continuous scrolling and a lot of options",
     "banners": {
       "low": "http://futusign-wordpress.s3-website-us-east-1.amazonaws.com/banner-772x250.jpg"
     }

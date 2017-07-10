@@ -96,7 +96,7 @@ class Futusign_OverlayRSS {
 	 */
 	public function __construct() {
 		$this->plugin_name = 'futusign-overlayrss';
-		$this->version = '0.1.0';
+		$this->version = '0.2.0';
 		$this->load_dependencies();
 		$this->set_locale();
 		if (Futusign_OverlayRSS::is_plugin_active('all')) {

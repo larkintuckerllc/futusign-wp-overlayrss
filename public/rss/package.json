@@ -1,6 +1,6 @@
 {
-  "name": "rss-embed",
-  "version": "1.0.0",
+  "name": "futusignz-overlayrss",
+  "version": "0.2.0",
   "description": "",
   "main": "./dist/index.html",
   "scripts": {

@@ -10,6 +10,7 @@ import {
   URL,
 } from '../strings';
 
+let drift = 0;
 const TIMEOUT = 10 * 1000;
 const RE_DESCRIPTION = new RegExp(DESCRIPTION_PARSE, 'm');
 const RE_TITLE = new RegExp(TITLE_PARSE, 'm');
@@ -18,8 +19,21 @@ const YQL_SELECT = encodeURI('select pubDate, title, description ');
 const YQL_FROM = encodeURI('from rss ');
 const YQL_WHERE = encodeURI(`where url="${URL}"`);
 const YQL_URL = `${YQL_ENDPOINT}?q=${YQL_SELECT}${YQL_FROM}${YQL_WHERE}&format=json`;
+window.addEventListener('message', (message) => {
+  switch (message.data.type) {
+    case 'MSG_TIME':
+      if (message.data.value !== undefined) {
+        drift = message.data.value;
+      }
+      break;
+    default:
+  }
+});
 // eslint-disable-next-line
 export const get = () => {
+  window.parent.postMessage({
+    type: 'MSG_TIME',
+  }, '*');
   if (URL === null) {
     return Promise.reject({
       message: '400',
@@ -45,7 +59,7 @@ export const get = () => {
       }
       let maxAgeM = null;
       if (PUB_DATES) {
-        maxAgeM = moment().subtract(MAX_AGE, 's');
+        maxAgeM = moment(Date.now() - drift).subtract(MAX_AGE, 's');
       }
       let transformed = data.query.results.item.map((o, i) => {
         const value = {
