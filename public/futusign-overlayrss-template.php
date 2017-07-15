@@ -60,6 +60,6 @@ header( 'Cache-Control: no-cache, no-store, must-revalidate');
 		var fsOrTitleParse = "<?php echo $fs_or_title_parse ?>";
 		var fsOrDescriptionParse = "<?php echo $fs_or_description_parse ?>";
 	</script>
-	<script src="<?php echo plugins_url( 'rss/dist/main.bundle.js',  __FILE__  ); ?>"></script>
+	<script src="<?php echo plugins_url( 'rss/dist/main.bundle.js?version=2017071501',  __FILE__  ); ?>"></script>
 </body>
 </html>
