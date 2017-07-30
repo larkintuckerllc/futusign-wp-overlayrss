@@ -53,20 +53,27 @@ export const get = () => {
         return;
       }
       if (
-        !data.query ||
-        !data.query.results ||
-        !Array.isArray(data.query.results.item)
+        data.query === undefined ||
+        data.query.results === undefined
       ) {
         reject({
           message: '400',
         });
         return;
       }
+      let items;
+      if (data.query.results === null) {
+        items = [];
+      } else if (!Array.isArray(data.query.results.item)) {
+        items = [data.query.results.item];
+      } else {
+        items = data.query.results.item;
+      }
       let maxAgeM = null;
       if (PUB_DATES) {
         maxAgeM = moment(Date.now() - drift).subtract(MAX_AGE, 's');
       }
-      let transformed = data.query.results.item.map((o, i) => {
+      let transformed = items.map((o, i) => {
         const value = {
           id: i,
         };

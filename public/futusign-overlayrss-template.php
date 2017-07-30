@@ -2,7 +2,6 @@
 if ( ! defined( 'WPINC' ) ) {
 	die;
 }
-add_action('wp_enqueue_scripts', 'fs_or_add_scripts');
 $fs_or_ID = get_the_ID();
 $fs_or_rssID = get_post_meta( $fs_or_ID, 'rssID', true );
 $fs_or_args = array(
@@ -60,6 +59,6 @@ header( 'Cache-Control: no-cache, no-store, must-revalidate');
 		var fsOrTitleParse = "<?php echo $fs_or_title_parse ?>";
 		var fsOrDescriptionParse = "<?php echo $fs_or_description_parse ?>";
 	</script>
-	<script src="<?php echo plugins_url( 'rss/dist/main.bundle.js?version=2017071501',  __FILE__  ); ?>"></script>
+	<script src="<?php echo plugins_url( 'rss/dist/main.bundle.js?version=2017073001',  __FILE__  ); ?>"></script>
 </body>
 </html>
