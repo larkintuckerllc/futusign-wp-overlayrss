@@ -10,14 +10,19 @@ import {
   URL,
 } from '../strings';
 
+const REG = /\?/;
 let drift = 0;
+const version = Date.now().toString();
+const url = REG.test(URL)
+? `${URL}&fs-or-version=${version}`
+: `${URL}?fs-or-version=${version}`;
 const TIMEOUT = 10 * 1000;
 const RE_DESCRIPTION = new RegExp(DESCRIPTION_PARSE, 'm');
 const RE_TITLE = new RegExp(TITLE_PARSE, 'm');
 const YQL_ENDPOINT = 'https://query.yahooapis.com/v1/public/yql';
 const YQL_SELECT = encodeURI('select pubDate, title, description ');
 const YQL_FROM = encodeURI('from rss ');
-const YQL_WHERE = encodeURI(`where url="${URL}"`);
+const YQL_WHERE = encodeURI(`where url="${url}"`);
 const YQL_URL = `${YQL_ENDPOINT}?q=${YQL_SELECT}${YQL_FROM}${YQL_WHERE}&format=json`;
 window.addEventListener('message', (message) => {
   switch (message.data.type) {
