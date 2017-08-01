@@ -96,7 +96,7 @@ class Futusign_OverlayRSS {
 	 */
 	public function __construct() {
 		$this->plugin_name = 'futusign-overlayrss';
-		$this->version = '0.2.3';
+		$this->version = '0.3.0';
 		$this->load_dependencies();
 		$this->set_locale();
 		if (Futusign_OverlayRSS::is_plugin_active('all')) {
@@ -177,6 +177,7 @@ class Futusign_OverlayRSS {
 	 */
 	private function define_admin_hooks() {
 		$plugin_admin = new Futusign_OverlayRSS_Admin();
+		$this->loader->add_filter( 'wp_link_query_args', $plugin_admin, 'wp_link_query_args' );
 	}
 	/**
 	 * Register all of the hooks related to the public-facing functionality
