@@ -34,11 +34,11 @@ header( 'Content-Type: text/html' );
 header( 'Cache-Control: no-cache, no-store, must-revalidate');
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" manifest="<?php echo plugins_url( 'rss/dist/index.appcache?version=2018031802', __FILE__ ); ?>">
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   <title>futusign Overlay RSS</title>
-	<link href="<?php echo plugins_url( 'rss/dist/styles.css',  __FILE__  ); ?>" rel="stylesheet" />
+	<link href="<?php echo plugins_url( 'rss/dist/styles.79f529a4b93a1f37f3fca36fbf6560f6.css',  __FILE__  ); ?>" rel="stylesheet" />
 </head>
 <body>
 	<div id="root"></div>
@@ -59,6 +59,6 @@ header( 'Cache-Control: no-cache, no-store, must-revalidate');
 		var fsOrTitleParse = "<?php echo $fs_or_title_parse ?>";
 		var fsOrDescriptionParse = "<?php echo $fs_or_description_parse ?>";
 	</script>
-	<script src="<?php echo plugins_url( 'rss/dist/main.bundle.js?version=2017073001',  __FILE__  ); ?>"></script>
+	<script src="<?php echo plugins_url( 'rss/dist/main.cb69f2c284fac6433423.bundle.js',  __FILE__  ); ?>"></script>
 </body>
 </html>

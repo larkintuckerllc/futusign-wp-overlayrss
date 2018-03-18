@@ -4,6 +4,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const BablePluginTransformObjectRestSpread = require('babel-plugin-transform-object-rest-spread');
+const AppCachePlugin = require('appcache-webpack-plugin');
 
 module.exports = env => ({
   resolve: {
@@ -12,7 +13,7 @@ module.exports = env => ({
   devtool: env === 'production' ? 'source-map' : 'cheap-eval-source-map',
   entry: './src/index.jsx',
   output: {
-    filename: '[name].bundle.js',
+    filename: '[name].[chunkhash].bundle.js',
     path: path.resolve(__dirname, 'dist'),
   },
   module: {
@@ -61,10 +62,17 @@ module.exports = env => ({
   },
   plugins: [
     new UglifyJSPlugin({ sourceMap: true }),
-    new ExtractTextPlugin('styles.css'),
+    new ExtractTextPlugin('styles.[contenthash].css'),
     new HtmlWebpackPlugin({
       template: path.join(__dirname, 'public', 'index.html'),
     }),
     new CleanWebpackPlugin(['dist']),
+    new AppCachePlugin({
+      exclude: [
+        /.*\.map$/,
+        /index.html/,
+      ],
+      output: 'index.appcache',
+    }),
   ],
 });
