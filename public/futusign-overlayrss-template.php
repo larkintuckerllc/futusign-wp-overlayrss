@@ -34,7 +34,7 @@ header( 'Content-Type: text/html' );
 header( 'Cache-Control: no-cache, no-store, must-revalidate');
 ?>
 <!DOCTYPE html>
-<html lang="en" manifest="<?php echo plugins_url( 'rss/dist/index.appcache?version=2018031802', __FILE__ ); ?>">
+<html lang="en" manifest="<?php echo plugins_url( 'rss/dist/index.appcache', __FILE__ ); ?>">
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   <title>futusign Overlay RSS</title>
