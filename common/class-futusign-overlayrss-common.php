@@ -54,4 +54,12 @@ class Futusign_OverlayRSS_Common {
 	public function get_rss() {
 		return $this->rss;
 	}
+	/**
+	* Add rewrite rules
+	*
+	* @since    0.5.0
+	*/
+	public function add_rewrite_rules() {
+		add_rewrite_rule( '^fs-or-endpoint/?', 'index.php?futusign_or_endpoint=1', 'top' );
+	}
 }

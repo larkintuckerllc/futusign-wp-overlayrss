@@ -41,4 +41,35 @@ class Futusign_OverlayRSS_Public {
 		}
 		return $single;
 	}
+	/**
+	 * Add to query variables
+	 *
+	 * @since    0.5.0
+	 * @param    array      $query_vars     query variables
+	 * @return   array      query variables
+	 */
+	public function query_vars( $query_vars ) {
+    $query_vars[] = 'futusign_or_endpoint';
+    $query_vars[] = 'futusign_or_widget_id';
+		return $query_vars;
+	}
+	/**
+	 * Define futusign-or endpoint
+	 *
+	 * @since    0.5.0
+	 * @param    array      $query     query
+	 */
+	public function parse_request( $query ) {
+		$query_vars = $query->query_vars;
+		if ( array_key_exists( 'futusign_or_endpoint', $query_vars ) ) {
+      if ( array_key_exists( 'futusign_or_widget_id', $query_vars ) ) {
+  			require_once plugin_dir_path( __FILE__ ) . 'partials/futusign-or-endpoint.php';
+				futusign_or_endpoint( $query_vars['futusign_or_widget_id'] );
+			} else {
+				status_header(400);
+			}
+			exit();
+		}
+		return;
+	}
 }

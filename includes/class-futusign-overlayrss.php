@@ -159,6 +159,7 @@ class Futusign_OverlayRSS {
 	 */
 	private function define_common_hooks() {
 		$plugin_common = new Futusign_OverlayRSS_Common();
+		$this->loader->add_action('init', $plugin_common, 'add_rewrite_rules');
 		// RSS
 		$rss = $plugin_common->get_rss();
 		$this->loader->add_action( 'init', $rss, 'register' );
@@ -189,6 +190,8 @@ class Futusign_OverlayRSS {
 	private function define_public_hooks() {
 		$plugin_public = new Futusign_OverlayRSS_Public();
 		$this->loader->add_action('single_template', $plugin_public, 'single_template');
+		$this->loader->add_action('query_vars', $plugin_public, 'query_vars');
+		$this->loader->add_action('parse_request', $plugin_public, 'parse_request');
 	}
 	/**
 	 * Run the loader to execute all of the hooks with WordPress.

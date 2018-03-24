@@ -27,5 +27,6 @@ class Futusign_OverlayRSS_Activator {
 	 * @since    0.1.0
 	 */
 	public static function activate() {
+		flush_rewrite_rules();
 	}
 }

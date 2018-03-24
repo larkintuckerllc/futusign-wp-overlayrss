@@ -42,5 +42,6 @@ class Futusign_OverlayRSS_Deactivator {
 			}
 		}
 		wp_reset_query();
+		flush_rewrite_rules();
 	}
 }
