@@ -32,6 +32,5 @@ export const fetchWidget = () => {
         TITLE_PARSE: json.titleParse,
         URL: json.url,
       };
-    })
-    .catch(() => window.console.log('ERROR'));
+    });
 };

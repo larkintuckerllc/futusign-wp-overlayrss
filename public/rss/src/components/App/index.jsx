@@ -33,7 +33,8 @@ class App extends Component {
         setInterval(() => {
           this.fetch();
         }, POLLING * 1000);
-      });
+      })
+      .catch(() => {});
   }
   cycle() {
     setTimeout(() => {
