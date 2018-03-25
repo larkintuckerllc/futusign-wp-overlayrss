@@ -16,23 +16,22 @@ export const get = () => {
     })
     .then((json) => {
       widget = {
-        CYCLING: json.cycling,
-        DESCRIPTION: json.description,
+        CYCLING: parseInt(json.cycling, 10),
+        DESCRIPTION: json.description === 'true',
         DESCRIPTION_PARSE: json.descriptionParse,
         LIGHT: json.theme === 'light',
-        LIMIT_DESCRIPTION: json.limitDescription,
-        LIMIT_ITEMS: json.limitItems,
+        LIMIT_DESCRIPTION: json.limitDescription === 'true',
+        LIMIT_ITEMS: json.limitItems === 'true',
         MAX_AGE: json.maximumAge,
         MAX_DESCRIPTION: json.maximumDescription,
         MAX_ITEMS: json.maximumItems,
-        POLLING: json.polling,
+        POLLING: parseInt(json.polling, 10),
         PUB_DATES: json.publicationDates,
-        SIZE: json.size,
-        TITLE: json.title,
+        SIZE: parseInt(json.size, 10),
+        TITLE: json.title === 'true',
         TITLE_PARSE: json.titleParse,
         URL: json.url,
       };
-      window.console.log(widget);
     })
     .catch(() => window.console.log('ERROR'));
 };

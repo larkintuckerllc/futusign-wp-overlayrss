@@ -1,30 +1,8 @@
 import jsonp from 'jsonp';
 import moment from 'moment';
-import {
-  DESCRIPTION,
-  DESCRIPTION_PARSE,
-  MAX_AGE,
-  PUB_DATES,
-  TITLE,
-  TITLE_PARSE,
-  URL,
-} from '../strings';
+import { getWidget } from './widget';
 
-const REG = /\?/;
 let drift = 0;
-const version = Date.now().toString();
-const url = REG.test(URL)
-? `${URL}&fs-or-version=${version}`
-: `${URL}?fs-or-version=${version}`;
-// TODO: NEED TO PRE-ENDCODE URL
-const TIMEOUT = 10 * 1000;
-const RE_DESCRIPTION = new RegExp(DESCRIPTION_PARSE, 'm');
-const RE_TITLE = new RegExp(TITLE_PARSE, 'm');
-const YQL_ENDPOINT = 'https://query.yahooapis.com/v1/public/yql';
-const YQL_SELECT = encodeURIComponent('select pubDate, title, description ');
-const YQL_FROM = encodeURIComponent('from rss ');
-const YQL_WHERE = encodeURIComponent(`where url="${url}"`);
-const YQL_URL = `${YQL_ENDPOINT}?q=${YQL_SELECT}${YQL_FROM}${YQL_WHERE}&format=json`;
 window.addEventListener('message', (message) => {
   switch (message.data.type) {
     case 'MSG_TIME':
@@ -37,6 +15,29 @@ window.addEventListener('message', (message) => {
 });
 // eslint-disable-next-line
 export const get = () => {
+  const {
+    DESCRIPTION,
+    DESCRIPTION_PARSE,
+    MAX_AGE,
+    PUB_DATES,
+    TITLE,
+    TITLE_PARSE,
+    URL,
+  } = getWidget();
+  const REG = /\?/;
+  const version = Date.now().toString();
+  const url = REG.test(URL)
+  ? `${URL}&fs-or-version=${version}`
+  : `${URL}?fs-or-version=${version}`;
+  // TODO: NEED TO PRE-ENDCODE URL
+  const TIMEOUT = 10 * 1000;
+  const RE_DESCRIPTION = new RegExp(DESCRIPTION_PARSE, 'm');
+  const RE_TITLE = new RegExp(TITLE_PARSE, 'm');
+  const YQL_ENDPOINT = 'https://query.yahooapis.com/v1/public/yql';
+  const YQL_SELECT = encodeURIComponent('select pubDate, title, description ');
+  const YQL_FROM = encodeURIComponent('from rss ');
+  const YQL_WHERE = encodeURIComponent(`where url="${url}"`);
+  const YQL_URL = `${YQL_ENDPOINT}?q=${YQL_SELECT}${YQL_FROM}${YQL_WHERE}&format=json`;
   window.parent.postMessage({
     type: 'MSG_TIME',
   }, '*');

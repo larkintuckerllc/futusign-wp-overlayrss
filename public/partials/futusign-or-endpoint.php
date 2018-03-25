@@ -60,7 +60,7 @@ function futusign_or_endpoint($widget_id) {
   echo json_encode( $theme );
   echo ', "limitItems":';
   echo json_encode( $limit_items);
-  echo ', "maximiumItems":';
+  echo ', "maximumItems":';
   echo json_encode( $maximium_items);
   echo ', "publicationDates":';
   echo json_encode( $publicationDates );
