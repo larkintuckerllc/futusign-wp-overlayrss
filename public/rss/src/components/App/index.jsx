@@ -9,6 +9,8 @@ import Frame from './Frame';
 import Bad from './Bad';
 import Offline from './Offline';
 import Marquee from './Marquee';
+import { fetchBase } from '../../apis/base';
+import { get } from '../../apis/widget';
 
 class App extends Component {
   constructor(props) {
@@ -17,8 +19,11 @@ class App extends Component {
     this.fetch = this.fetch.bind(this);
   }
   componentDidMount() {
-    this.fetch()
-    .then(this.cycle);
+    // HACKED IN BASE AND WIDGET WITHOUT REDUX
+    fetchBase()
+      .then(get)
+      .then(this.fetch)
+      .then(this.cycle);
     setInterval(() => {
       this.fetch();
     }, POLLING * 1000);

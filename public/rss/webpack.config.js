@@ -5,6 +5,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const BablePluginTransformObjectRestSpread = require('babel-plugin-transform-object-rest-spread');
 const AppCachePlugin = require('appcache-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = env => ({
   resolve: {
@@ -66,11 +67,15 @@ module.exports = env => ({
     new HtmlWebpackPlugin({
       template: path.join(__dirname, 'public', 'index.html'),
     }),
+    new CopyWebpackPlugin([
+      { from: 'data', to: 'data' },
+    ]),
     new CleanWebpackPlugin(['dist']),
     new AppCachePlugin({
       exclude: [
         /.*\.map$/,
         /index.html/,
+        /data\/.*/,
       ],
       output: 'index.appcache',
     }),

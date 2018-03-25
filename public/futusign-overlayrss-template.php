@@ -43,6 +43,7 @@ header( 'Cache-Control: no-cache, no-store, must-revalidate');
 <body>
 	<div id="root"></div>
 	<script>
+		var fsOrID = "<?php echo $fs_or_ID; ?>";
 		var fsOrURL = "<?php echo $fs_or_url; ?>";
 		var fsOrCycling = <?php echo $fs_or_cycling ?>;
 		var fsOrPolling = <?php echo $fs_or_polling ?>;

@@ -1,7 +1,9 @@
 import { parseQueryString } from './util/misc';
 
 const { position } = parseQueryString();
+export const SITE_URL = window.siteUrl;
 export const ACTION_PREFIX = 'app/';
+export const ID = window.fsOrID;
 export const URL = window.fsOrURL;
 export const CYCLING = window.fsOrCycling;
 export const POLLING = window.fsOrPolling;
