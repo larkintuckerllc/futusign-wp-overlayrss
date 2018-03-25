@@ -15,14 +15,19 @@ import { get } from '../../apis/widget';
 class App extends Component {
   constructor(props) {
     super(props);
+    // HACKED IN PLAYING
+    this.state = { playing: false };
     this.cycle = this.cycle.bind(this);
     this.fetch = this.fetch.bind(this);
   }
   componentDidMount() {
-    // HACKED IN BASE AND WIDGET WITHOUT REDUX
+    // HACKED IN BASE AND WIDGET
     fetchBase()
       .then(get)
-      .then(this.fetch)
+      .then(() => {
+        this.setState({ playing: true });
+        return this.fetch();
+      })
       .then(this.cycle);
     setInterval(() => {
       this.fetch();
@@ -53,6 +58,8 @@ class App extends Component {
     return (((text.length + (window.innerWidth / SIZE)) / CYCLING));
   }
   render() {
+    const { playing } = this.state;
+    if (!playing) return null;
     const {
       even,
       fetchItemsErrorMessage,
