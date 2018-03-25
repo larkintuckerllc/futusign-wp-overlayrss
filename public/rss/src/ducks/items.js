@@ -2,19 +2,11 @@ import { combineReducers } from 'redux';
 import { normalize, schema } from 'normalizr';
 import { createSelector } from 'reselect';
 import moment from 'moment';
-import {
-  ACTION_PREFIX,
-  DESCRIPTION,
-  LIMIT_DESCRIPTION,
-  LIMIT_ITEMS,
-  MAX_DESCRIPTION,
-  MAX_ITEMS,
-  PUB_DATES,
-  TITLE,
-} from '../strings';
+import { ACTION_PREFIX } from '../strings';
 import { ServerException } from '../util/exceptions';
 // API
 import { get } from '../apis/feed';
+import { getWidget } from '../apis/widget';
 
 // REDUCER MOUNT POINT
 // ACTIONS
@@ -92,6 +84,17 @@ export const getItems = createSelector(
 export const getText = createSelector(
   [getItemsIds, getItemsById],
   (itemsIds, itemsById) => {
+    const widget = getWidget();
+    if (widget === null) return '';
+    const {
+      DESCRIPTION,
+      LIMIT_DESCRIPTION,
+      LIMIT_ITEMS,
+      MAX_DESCRIPTION,
+      MAX_ITEMS,
+      PUB_DATES,
+      TITLE,
+    } = widget;
     const items = itemsIds.map(id => itemsById[id]);
     const countItems = LIMIT_ITEMS ?
       Math.min(items.length, MAX_ITEMS) :
