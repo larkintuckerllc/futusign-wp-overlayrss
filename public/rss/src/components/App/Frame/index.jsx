@@ -5,7 +5,6 @@ import { getWidget } from '../../../apis/widget';
 
 const Frame = ({ children, empty, fetchItemsErrorMessage }) => {
   const { LIGHT, SIZE } = getWidget();
-  window.console.log(SIZE);
   let className;
   if (empty || fetchItemsErrorMessage !== null) {
     className = styles.rootEmpty;
