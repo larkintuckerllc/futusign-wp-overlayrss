@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { CYCLING, POLLING, SIZE } from '../../strings';
 import * as fromEven from '../../ducks/even';
 import * as fromItems from '../../ducks/items';
 import * as fromMarqueeStart from '../../ducks/marqueeStart';
@@ -10,7 +9,7 @@ import Bad from './Bad';
 import Offline from './Offline';
 import Marquee from './Marquee';
 import { fetchBase } from '../../apis/base';
-import { get } from '../../apis/widget';
+import { fetchWidget, getWidget } from '../../apis/widget';
 
 class App extends Component {
   constructor(props) {
@@ -23,15 +22,18 @@ class App extends Component {
   componentDidMount() {
     // HACKED IN BASE AND WIDGET
     fetchBase()
-      .then(get)
+      .then(fetchWidget)
       .then(() => {
         this.setState({ playing: true });
         return this.fetch();
       })
-      .then(this.cycle);
-    setInterval(() => {
-      this.fetch();
-    }, POLLING * 1000);
+      .then(this.cycle)
+      .then(() => {
+        const { POLLING } = getWidget();
+        setInterval(() => {
+          this.fetch();
+        }, POLLING * 1000);
+      });
   }
   cycle() {
     setTimeout(() => {
@@ -55,6 +57,7 @@ class App extends Component {
   }
   duration() {
     const { text } = this.props;
+    const { SIZE, CYCLING } = getWidget();
     return (((text.length + (window.innerWidth / SIZE)) / CYCLING));
   }
   render() {

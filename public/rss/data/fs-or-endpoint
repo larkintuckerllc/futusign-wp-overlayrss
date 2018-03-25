@@ -1,1 +1,17 @@
-{"url":"http:\/\/rss.cnn.com\/rss\/cnn_topstories.rss", "cycling":"10", "polling":"60", "size":"10", "theme":"dark", "limitItems":"false", "maximumItems":null, "publicationDates":null, "maximumAge":null, "title":"true", "description":"true", "limitDescription":"false", "maximumDescription":null, "titleParse":"^(?:<[^>]*>)*([^<]*)", "descriptionParse":"^(?:<[^>]*>)*([^<]*)"}
+{
+  "url": "http:\/\/rss.cnn.com\/rss\/cnn_topstories.rss",
+  "cycling": "20",
+  "polling": "60",
+  "size": "30",
+  "theme": "dark",
+  "limitItems": "false",
+  "maximumItems": null,
+  "publicationDates": null,
+  "maximumAge": null,
+  "title": "true",
+  "description": "true",
+  "limitDescription":"false",
+  "maximumDescription":null,
+  "titleParse":"^(?:<[^>]*>)*([^<]*)",
+  "descriptionParse":"^(?:<[^>]*>)*([^<]*)"
+}

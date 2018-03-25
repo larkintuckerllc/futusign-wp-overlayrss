@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { LIGHT, POSITION, SIZE } from '../../../strings';
 import Text from './Text';
 import styles from './index.scss';
+import { getWidget } from '../../../apis/widget';
+import { POSITION } from '../../../strings';
 
 class Marquee extends Component {
   constructor(props) {
@@ -47,6 +48,7 @@ class Marquee extends Component {
     }, 1000);
   }
   render() {
+    const { LIGHT, SIZE } = getWidget();
     const { duration, items, marqueeStart } = this.props;
     const windowWidth = window.innerWidth;
     const rootWidth = this.rootEl !== undefined

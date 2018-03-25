@@ -1,17 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
-import {
-  DESCRIPTION,
-  LIMIT_ITEMS,
-  LIMIT_DESCRIPTION,
-  MAX_DESCRIPTION,
-  MAX_ITEMS,
-  PUB_DATES,
-  TITLE,
-} from '../../../../strings';
+import { getWidget } from '../../../../apis/widget';
 
 const Text = ({ items }) => {
+  const {
+    DESCRIPTION,
+    LIMIT_DESCRIPTION,
+    LIMIT_ITEMS,
+    MAX_DESCRIPTION,
+    MAX_ITEMS,
+    PUB_DATES,
+    TITLE,
+   } = getWidget();
   const count = LIMIT_ITEMS ?
     Math.min(items.length, MAX_ITEMS) :
     items.length;

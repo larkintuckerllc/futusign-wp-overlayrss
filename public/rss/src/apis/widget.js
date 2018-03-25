@@ -5,7 +5,7 @@ let widget = null;
 export function getWidget() {
   return widget;
 }
-export const get = () => {
+export const fetchWidget = () => {
   const ENDPOINT = getPretty() ?
     `${SITE_URL}fs-or-endpoint?futusign_or_widget_id=${ID.toString()}` :
     `${SITE_URL}?fs-or-endpoint=1&futusign_or_widget_id=${ID.toString()}`;
