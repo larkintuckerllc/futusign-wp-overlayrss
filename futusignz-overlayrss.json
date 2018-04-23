@@ -1,20 +1,20 @@
 {
     "name" : "futusign Overlay RSS",
     "slug" : "futusignz-overlayrss",
-    "download_url" : "http://futusign-wordpress.s3-website-us-east-1.amazonaws.com/futusignz-overlayrss-0-5-0.zip",
-    "version" : "0.5.0",
+    "download_url" : "http://futusign-wordpress.s3-website-us-east-1.amazonaws.com/futusignz-overlayrss-0-5-1.zip",
+    "version" : "0.5.1",
     "author" : "John Tucker",
     "sections" : {
         "description" : "Add futusign Overlay RSS feature",
         "installation": "Upload and activate the <code>futusignz-overlayrss</code> plugin via the plugin admin page",
-        "changelog" : "<p><b>0.5.0</b></p><p>AJAX core data</p><p><b>0.4.1</b></p><p>Remove cache bust on manifest.</p><p><b>0.4.0</b></p><p>HTML5 application cache</p><p><b>0.3.0</b></p><p>filter link builder</p><p><b>0.2.3</b></p><p>Fix bug with encoding</p><p><b>0.2.2</b></p><p>Cache bust RSS and singular</p><p><b>0.2.1</b></p><p>Cache bust JavaScript</p><p><b>0.2.0</b></p><p>Continuous scrolling and a lot of options</p><p><b>0.1.0</b></p><p>Initial release</p>"
+        "changelog" : "<p><b>0.5.1</b></p><p>Refresh endpoint on upgrade</p><p><b>0.5.0</b></p><p>AJAX core data</p><p><b>0.4.1</b></p><p>Remove cache bust on manifest.</p><p><b>0.4.0</b></p><p>HTML5 application cache</p><p><b>0.3.0</b></p><p>filter link builder</p><p><b>0.2.3</b></p><p>Fix bug with encoding</p><p><b>0.2.2</b></p><p>Cache bust RSS and singular</p><p><b>0.2.1</b></p><p>Cache bust JavaScript</p><p><b>0.2.0</b></p><p>Continuous scrolling and a lot of options</p><p><b>0.1.0</b></p><p>Initial release</p>"
     },
     "homepage": "https://www.futusign.com",
     "requires": "4.3",
     "tested": "4.9",
     "author_homepage": "https://github.com/larkintuckerllc",
-    "last_updated": "2018-03-25 00:00:00",
-    "upgrade_notice": "AJAX core data",
+    "last_updated": "2018-04-22 00:00:00",
+    "upgrade_notice": "Refresh endpoint on upgrade",
     "banners": {
       "low": "http://futusign-wordpress.s3-website-us-east-1.amazonaws.com/banner-772x250.jpg"
     }

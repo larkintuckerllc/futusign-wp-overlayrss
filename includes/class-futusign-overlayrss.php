@@ -96,7 +96,7 @@ class Futusign_OverlayRSS {
 	 */
 	public function __construct() {
 		$this->plugin_name = 'futusign-overlayrss';
-		$this->version = '0.5.0';
+		$this->version = '0.5.1';
 		$this->load_dependencies();
 		$this->set_locale();
 		if (Futusign_OverlayRSS::is_plugin_active('all')) {
@@ -168,6 +168,8 @@ class Futusign_OverlayRSS {
 		$this->loader->add_action( 'draft_futusign_overlay_rss', $rss, 'unpublish', 10, 2 );
 		$this->loader->add_action( 'pending_futusign_overlay_rss', $rss, 'unpublish', 10, 2 );
 		$this->loader->add_action( 'trash_futusign_overlay_rss', $rss, 'unpublish', 10, 2 );
+		// UPDATE DB CHECK
+		$this->loader->add_action('init', $this, 'update_db_check');
 	}
 	/**
 	 * Register all of the hooks related to the admin area functionality
@@ -219,5 +221,17 @@ class Futusign_OverlayRSS {
 	 */
 	public function get_loader() {
 		return $this->loader;
+	}
+	/**
+	 * On update, update database
+	 *
+	 * @since    0.5.1
+	 */
+	public function update_db_check() {
+		$current_version = $this->version;
+		if ( get_site_option( 'futusign_or_db_version' ) !== $current_version ) {
+			flush_rewrite_rules();
+			update_option( 'futusign_or_db_version', $current_version );
+		}
 	}
 }
