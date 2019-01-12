@@ -50,11 +50,13 @@ class Futusign_OverlayRSS_Public {
 	 */
 	public function query_vars( $query_vars ) {
     $query_vars[] = 'futusign_or_endpoint';
-    $query_vars[] = 'futusign_or_widget_id';
+		$query_vars[] = 'futusign_or_widget_id';
+		$query_vars[] = 'futusign_or_rss_endpoint';
+		$query_vars[] = 'futusign_or_rss_url';
 		return $query_vars;
 	}
 	/**
-	 * Define futusign-or endpoint
+	 * Define fs-or-endpoint and fs-or-rss-endpoint
 	 *
 	 * @since    0.5.0
 	 * @param    array      $query     query
@@ -68,6 +70,16 @@ class Futusign_OverlayRSS_Public {
 			} else {
 				status_header(400);
 			}
+			exit();
+		}
+		if ( array_key_exists( 'futusign_or_rss_endpoint', $query_vars ) ) {
+      if ( array_key_exists( 'futusign_or_rss_url', $query_vars ) ) {
+  			require_once plugin_dir_path( __FILE__ ) . 'partials/futusign-or-rss-endpoint.php';
+				futusign_or_rss_endpoint( $query_vars['futusign_or_rss_url'] );
+			} else {
+				status_header(400);
+			}
+			status_header(400);
 			exit();
 		}
 		return;
