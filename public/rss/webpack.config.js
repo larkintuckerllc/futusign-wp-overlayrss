@@ -20,6 +20,13 @@ module.exports = env => ({
   module: {
     rules: [
       {
+        test: /rss-parser\/lib\/.*\.js$/,
+        loader: 'babel-loader',
+        options: {
+          presets: ['es2015'],
+        },
+      },
+      {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
         loader: 'babel-loader',

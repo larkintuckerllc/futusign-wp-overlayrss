@@ -1,6 +1,6 @@
 {
   "name": "futusignz-overlayrss",
-  "version": "0.2.3",
+  "version": "0.6.0",
   "description": "",
   "main": "./dist/index.html",
   "scripts": {
