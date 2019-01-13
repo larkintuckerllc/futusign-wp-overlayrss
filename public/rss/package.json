@@ -54,7 +54,6 @@
     "redux": "^3.6.0",
     "redux-thunk": "^2.2.0",
     "reselect": "^3.0.1",
-    "rss-parser": "^3.6.2",
-    "rss-to-json": "^1.0.4"
+    "rss-parser": "^3.6.2"
   }
 }
