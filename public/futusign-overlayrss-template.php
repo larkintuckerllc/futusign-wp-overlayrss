@@ -20,6 +20,6 @@ header( 'Cache-Control: no-cache, no-store, must-revalidate');
     window.siteUrl = '<?php echo trailingslashit( site_url() ); ?>';
 		window.fsOrID = "<?php echo $fs_or_ID; ?>";
 	</script>
-	<script src="<?php echo plugins_url( 'rss/dist/main.60c5190b2d54851e9d68.bundle.js',  __FILE__  ); ?>"></script>
+	<script src="<?php echo plugins_url( 'rss/dist/main.3deab7e9587ae3f8a087.bundle.js',  __FILE__  ); ?>"></script>
 </body>
 </html>

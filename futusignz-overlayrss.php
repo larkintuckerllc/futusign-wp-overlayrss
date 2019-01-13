@@ -9,7 +9,7 @@
  * Plugin Name:      futusign Overlay RSS
  * Plugin URI:       https://www.futusign.com
  * Description:      Add futusign Overlay RSS feature
- * Version:          0.5.1
+ * Version:          0.6.0
  * Author:           John Tucker
  * Author URI:       https://github.com/larkintuckerllc
  * License:          Custom
